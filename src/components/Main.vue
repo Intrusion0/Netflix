@@ -34,18 +34,22 @@
         </div>
       </div>
 
-      <Trendings :details="trendings"/>
+      <Populars :details="populars"/>
+      <Tops :details="tops"/>
+      <Top-10-series :details="top10Series"/>
     </div>
   </main>
 </template>
 
 <script>
 import axios from 'axios'
-import Trendings from './Trendings.vue'
+import Populars from './Populars.vue'
+import Tops from './Tops.vue'
+import Top10Series from './Top10Series.vue'
 
 
 export default {
-  components: { Trendings },
+  components: { Populars, Tops, Top10Series },
   name: 'Main',
 
   data() {
@@ -53,25 +57,83 @@ export default {
         test: '',
         apiUrl: 'https://api.themoviedb.org/3/',
         apiKey: '?api_key=16cc96ba36cde80dcf11f479cce8e348',
-        apiTrending: 'trending/all/day',
-        trendings: [],
+        apiLanguage:'&language=it-IT',
+        apiPage:'&page=1',
+        apiMovie: 'movie/',
+        apiSeries: 'tv/',
+        apiPopulars: 'popular',
+        apiTops: 'top_rated',
+        apiTop10Series: 'airing_today',
+        popularsSeries: [],
+        popularsMovies: [],
+        topSeries: [],
+        topMovies: [],
+        populars: [],
+        tops: [],
+        top10Series: [],
     }
   },
 
   mounted() {
-    this.getTrending()
+    this.getPopular();
+    this.getTop();
+    this.getTop10Series();
   },
 
   methods: {
-    getTrending() {
-      axios.get(this.apiUrl + this.apiTrending + this.apiKey)
+    async getPopular() {
+      // Series
+      await axios.get(this.apiUrl + this.apiSeries + this.apiPopulars + this.apiKey + this.apiLanguage + this.apiPage)
           .then((r) => {
-            this.trendings = r.data.results;
-              console.log(r.data.results);
+            this.popularsSeries = r.data.results;
+              console.log('series', r.data.results);
           })
           .catch((e) => console.error(e));
+      
+      // Movies
+      await axios.get(this.apiUrl + this.apiMovie + this.apiPopulars + this.apiKey + this.apiLanguage + this.apiPage)
+          .then((r) => {
+            this.popularsMovies = r.data.results;
+              console.log('movies',  r.data.results);
+          })
+          .catch((e) => console.error(e));
+      // shuffle array
+      this.populars = [...this.popularsSeries, ...this.popularsMovies];
+      
+    },
+
+    async getTop() {
+       // Series
+      await axios.get(this.apiUrl + this.apiSeries + this.apiTops + this.apiKey + this.apiLanguage + this.apiPage)
+          .then((r) => {
+            this.topSeries = r.data.results;
+              console.log('series', r.data.results);
+          })
+          .catch((e) => console.error(e));
+      
+      // Movies
+      await axios.get(this.apiUrl + this.apiMovie + this.apiTops + this.apiKey + this.apiLanguage + this.apiPage)
+          .then((r) => {
+            this.topMovies = r.data.results;
+              console.log('movies',  r.data.results);
+          })
+          .catch((e) => console.error(e));
+      // shuffle array
+      this.tops = [...this.topSeries, ...this.topMovies];
+    },
+
+   async getTop10Series() {
+       // Series
+      await axios.get(this.apiUrl + this.apiSeries + this.apiTop10Series + this.apiKey + this.apiLanguage + this.apiPage)
+          .then((r) => {
+            this.top10Series = r.data.results;
+            this.top10Series.splice(9, 10);
+              console.log('top10', r.data.results);
+          })
+          .catch((e) => console.error(e));
+
     }
-  }
+  },
 }
 </script>
 
