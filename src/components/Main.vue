@@ -8,9 +8,13 @@
       <!-- Jumbo -->
       <div class="jumbotron">
         <div class="jumbo-container">
-          <img src="../assets/test.png" alt="test">
+          <img :src="imgUrl + randomJumbo.backdrop_path" :alt="randomJumbo.title">
 
           <div class="cta">
+            <h1> {{ randomJumbo.name || randomJumbo.title }} </h1>
+            <p>
+              {{ randomJumbo.overview }}
+            </p>
             <button>
               <span>
                 <i class="fas fa-play"></i>
@@ -54,7 +58,6 @@ export default {
 
   data() {
     return {
-        test: '',
         apiUrl: 'https://api.themoviedb.org/3/',
         apiKey: '?api_key=16cc96ba36cde80dcf11f479cce8e348',
         apiLanguage:'&language=it-IT',
@@ -71,6 +74,8 @@ export default {
         populars: [],
         tops: [],
         top10Series: [],
+        randomJumbo: " ",
+        imgUrl: "https://image.tmdb.org/t/p/original",
     }
   },
 
@@ -99,7 +104,8 @@ export default {
           .catch((e) => console.error(e));
       // shuffle array
       this.populars = [...this.popularsSeries, ...this.popularsMovies];
-      
+
+     this.randomJumbo = this.populars[Math.floor(Math.random()*this.populars.length)];
     },
 
     async getTop() {
@@ -163,7 +169,9 @@ main {
         position: relative;
 
         img {
-            width: 100%;
+          width: 100%;
+          height: 1080px;
+          object-fit: cover;
         }
 
         .cta {
