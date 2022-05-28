@@ -3,12 +3,14 @@
     <h2> Top 10 delle serie TV in Italia oggi</h2>
 
     <div class="row">
-      <div v-for="detail, i in details" :key="'A' + i" class="card">
+      <div v-for="detail, i in details" class="card card-top10" :key="'A' + i">
         <div> 
-            <img :src="getNumberImg(i)" alt="">
+            <img :src="getNumberImg(i)" :alt="i">
         </div>
      
-        <img :src="imgUrl + detail.poster_path" :alt="detail.title">
+        <div class="container-img">
+            <img :src="imgUrl + detail.backdrop_path" class="serie-image" :alt="detail.title">
+        </div>
       </div>
     </div>
   </section>
@@ -25,7 +27,7 @@ export default {
 
   data() {
     return {
-       imgUrl: "https://image.tmdb.org/t/p/w500",
+       imgUrl: "https://image.tmdb.org/t/p/w300",
        svgImage: " ",
     }
   },
@@ -64,13 +66,25 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 #top10 {
-    .card {
-
-        .number {
-            font-size: 200px;
-            color: black;
-        }
+  .card-top10 {
+    display: flex;
+    height: 206px;
+    
+    .number {
+      font-size: 200px;
+      color: black;
     }
+
+    .container-img {
+      width: 45%;
+
+      .serie-image {
+        width: 100%;
+      }
+      
+    }
+  }
+
 }
 
 </style>

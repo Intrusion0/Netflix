@@ -4,7 +4,8 @@
 
     <div class="row">
       <div v-for="detail, i in details" :key="'A' + i" class="card">
-        <img :src="imgUrl + detail.poster_path" :alt="detail.title">
+        <img v-if="detail.backdrop_path" :src="imgUrl + detail.backdrop_path" :alt="detail.title">
+        <img v-else src="@/assets/default-card.png" alt="">
       </div>
     </div>
   </section>
@@ -21,7 +22,7 @@ export default {
 
   data() {
     return {
-       imgUrl: "https://image.tmdb.org/t/p/w500",
+       imgUrl: "https://image.tmdb.org/t/p/original",
     }
   },
   
