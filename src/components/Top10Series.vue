@@ -27,7 +27,7 @@ export default {
 
   data() {
     return {
-       imgUrl: "https://image.tmdb.org/t/p/w300",
+       imgUrl: "https://image.tmdb.org/t/p/w500",
        svgImage: " ",
     }
   },

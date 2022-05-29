@@ -10,30 +10,44 @@
         <div class="jumbo-container">
           <img :src="imgUrl + randomJumbo.backdrop_path" :alt="randomJumbo.title">
 
+
           <div class="cta">
-            <h1> {{ randomJumbo.name || randomJumbo.title }} </h1>
-            <p>
-              {{ randomJumbo.overview }}
-            </p>
-            <button>
-              <span>
-                <i class="fas fa-play"></i>
-              </span>
 
-              <span>
-                Riproduci
-              </span>
-            </button>
+            <!-- VIDEO TEST -->
 
-            <button class="info-button">
-              <span>
-                <i class="fa-solid fa-info info"></i>
-              </span>
+            <!-- <iframe width="560" height="315" src="https://www.youtube.com/embed/iNgtmGG5FYQ?controls=0&autoplay=1" frameborder="0"></iframe> -->
 
-              <span>
-                Altre info
-              </span>
-            </button>
+            <!-- OPPURE questo sotto che è deprecato -->
+
+            <!-- <embed src="https://www.youtube.com/embed/iNgtmGG5FYQ?autoplay=1"
+                   width="200" height="200" title="Everytime You Go Away - Paul Young"> -->
+
+
+            <div class="container-info">
+              <h1> {{ randomJumbo.name || randomJumbo.title }} </h1>
+
+              <p>
+                {{ randomJumbo.overview }}
+              </p>
+            </div>
+
+            <div class="container-buttons">
+              <button>
+                <span>
+                  <i class="fas fa-play"></i>
+                </span>
+  
+                <span> Riproduci </span>
+              </button>
+  
+              <button class="info-button">
+                <span>
+                  <i class="fa-solid fa-info info"></i>
+                </span>
+  
+                <span> Altre info </span>
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -152,7 +166,6 @@ main {
   .container {
     margin-left: 60px;
 
-
     div.divisor {
       height: 900px;
     }
@@ -175,37 +188,60 @@ main {
         }
 
         .cta {
+          display: flex;
+          flex-direction: column;
           position: absolute;
           top: 56%;
           left: 60px;
-          display: flex;
 
-          button {
-            border: 0;
-            font-size: 25px;
-            font-weight: 600;
-            border-radius: 4px;
-            margin-right: 15px;
-            padding: 12px 45px;
+          .container-info {
+
+            h1 {
+              color: #fff;
+            }
+
+            p {
+              width: 38%;
+              color: #fff;
+              margin: 20px 0;
+              font-size: 23px;
+              text-shadow: 2px 2px 4px rgb(0 0 0 / 45%);
+              display: -webkit-box;
+              -webkit-box-orient: vertical;
+              -webkit-line-clamp: 3;
+              overflow: hidden;
+            }
+          }
+
+          .container-buttons {
             display: flex;
-            align-items: center;
-            cursor: pointer;
 
-            span i {
-                font-size: 38px;
-                margin-right: 10px;
+            button {
+              border: 0;
+              font-size: 25px;
+              font-weight: 600;
+              border-radius: 4px;
+              margin-right: 15px;
+              padding: 12px 45px;
+              display: flex;
+              align-items: center;
+              cursor: pointer;
+
+              span i {
+                  font-size: 38px;
+                  margin-right: 10px;
+              }
+            }
+
+            .info-button {
+              color: #fff;
+              background-color: rgba(109, 109, 110, 0.7);
+
+              .info {
+                font-size: 26px;
+              }
             }
           }
-
-          .info-button {
-            color: #fff;
-            background-color: rgba(109, 109, 110, 0.7);
-
-            .info {
-              font-size: 26px;
-            }
-          }
-          
         }
       }
     }
