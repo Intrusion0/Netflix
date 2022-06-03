@@ -24,15 +24,125 @@ export default {
 <style lang="scss">
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
-// TESTTTTTT PER IL VIDEO
-.ytp-chrome-bottom { // Questa classe sarebbe per i controls nel video
-  display: none;
+:root {
+  --movie-width: 15.5vw;
+  --movie-height: 200px;
+  --arrow-width: 50px;
+}
+@media only screen and (max-width: 1000px) {
+  :root {
+    --movie-width: 25vw;
+  }
 }
 
-.ytp-bezel-text-hide {
-  display: none; // Questa invece per il cerchio al centro quando clicchi sul video che appare e scompare
+.container-slider {
+  position: relative;
+}
+/*
+*
+* THE SLIDER CONTAINER
+*
+*********************************/
+.slider {
+  display: flex;
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  white-space: nowrap;
+  position: relative;
+}
+/*
+*
+* SLIDER INDICATORS
+*
+*********************************/
+.container-indicators {
+  width: auto;
+  position: absolute;
+  right: 50px;
+  top: -25px;
+  visibility: hidden;
 }
 
+.indicator {
+  width: 15px;
+  height: 2px;
+  background-color: grey;
+  display: inline-block;
+  margin-right: 2px;
+}
+
+.indicator.active {
+  background-color: white;
+}
+/*
+*
+* MOVIE ELEMENTS!
+*
+*********************************/
+.movie {
+  display: inline-block;
+  width: 293px;
+  height: 163px;
+  min-width: 293px;
+  position: relative;
+  margin-right: 8px;
+  border-radius: 4px;
+}
+
+.movie:nth-of-type(1) {
+  margin-left: 0;
+}
+
+.movie img {
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+  border-radius: 4px;
+}
+
+.movie:hover > img {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+/*
+*
+* BUTTONS
+*
+*********************************/
+.btn-nav {
+  width: var(--arrow-width);
+  height: var(--movie-height);
+  border-radius: 5px;
+  position: absolute;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  outline: none;
+  border: none;
+  color: white;
+  top: 0;
+  z-index: 5;
+  visibility: hidden;
+
+  & > i {
+    font-size: 30px;
+  }
+}
+
+.moveLeft {
+  left: 0;
+}
+
+.moveRight {
+  right: 0;
+}
+
+.container-slider:hover .btn-nav,
+.container-slider:hover .container-indicators {
+  visibility: visible;
+  cursor: pointer;
+}
 
 // General rules
 * {

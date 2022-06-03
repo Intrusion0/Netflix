@@ -2,16 +2,34 @@
   <section id="top10"> 
     <h2> Top 10 delle serie TV in Italia oggi</h2>
 
-    <div class="row">
-      <div v-for="detail, i in details" class="card card-top10" :key="'A' + i">
-        <div> 
-            <img :src="getNumberImg(i)" :alt="i">
-        </div>
-     
-        <div class="container-img">
-            <img :src="imgUrl + detail.backdrop_path" class="serie-image" :alt="detail.title">
+    <div class="container-slider">
+      <button type="button" id="btn-left3" class="btn-nav moveLeft">
+        <i class="fas fa-angle-left"></i>
+      </button>
+      <div class="container-indicators">
+        <div class="indicator active" data-index=0></div>
+        <div class="indicator" data-index=1></div>
+        <div class="indicator" data-index=2></div>
+        <div class="indicator" data-index=3></div>
+        <div class="indicator" data-index=4></div>
+        <div class="indicator" data-index=5></div>
+        <div class="indicator" data-index=6></div>
+        <div class="indicator" data-index=7></div>
+      </div>
+      <div class="slider" id="mySlider1">
+        <div v-for="detail, i in details" id="movie0" class="top10 movie" :key="'B' + i">
+          <div> 
+              <img :src="getNumberImg(i)" :alt="i">
+          </div>
+          <div class="container-img">
+              <img v-if="detail.backdrop_path" :src="imgUrl + detail.backdrop_path" class="serie-image" :alt="detail.title">
+              <img v-else src="@/assets/default-card.png" alt="">
+          </div>
         </div>
       </div>
+      <button type="button" id="btn-right3" class="btn-nav moveRight">
+        <i class="fas fa-angle-right"></i>
+      </button>
     </div>
   </section>
 </template>
@@ -66,14 +84,13 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 #top10 {
-  .card-top10 {
+
+  .top10 {
+    margin-right: 5px;
+  }
+  .movie {
     display: flex;
     height: 206px;
-    
-    .number {
-      font-size: 200px;
-      color: black;
-    }
 
     .container-img {
       width: 45%;
