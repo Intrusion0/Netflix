@@ -12,130 +12,446 @@ const btnLeft = document.querySelectorAll(".moveLeft");
 const btnRight = document.querySelectorAll(".moveRight");
 const indicators = document.querySelectorAll(".indicator");
 let activeIndex = 0; // the current page on the slider
-
-// Update the indicators that show which page we're currently on
-function updateIndicators(index) {
-  indicators.forEach((indicator) => {
-    indicator.classList.remove("active");
-  });
-  let newActiveIndicator = indicators[index];
-  newActiveIndicator.classList.add("active");
-}
-
+let index1 = 0; // Indicatori Populars
+let index2 = 8; // Indicatori Tops
+let index3 = 16; // Indicatori Top10Series
 
 // Scroll Left button
-btnLeft.forEach(element => {
-  element.addEventListener("click", () => {
+btnLeft.forEach(btn => {
+  btn.addEventListener("click", () => {
     let movieWidth = document.querySelector(".movie").getBoundingClientRect().width;
     let scrollDistance = movieWidth * 5.11; // Scroll the length of 6 movies. TODO: make work for mobile because (4 movies/page instead of 6)
 
-    if (element.id == 'btn-left1') {
-      console.log('TEST');
-      slider[0].scrollBy({
-        top: 0,
-        left: -scrollDistance,
-        behavior: "smooth",
-        // CREARE FUNZIONE PER TUTTO!!!!!
-      });
-    }
+    if (activeIndex == 0 || activeIndex == 8 || activeIndex == 16) { // Quando l'indice è uguale a 0, se riclicco mi porta alla fine, quindi abbiamo un carousel infinito.
 
-    if (element.id == 'btn-left2') {
-      slider[1].scrollBy({
-        top: 0,
-        left: -scrollDistance,
-        behavior: "smooth",
-        // CREARE FUNZIONE PER TUTTO!!!!!
-      });
-    }
+      if (btn.id == 'btn-left1') { // Sezione Populars
+        slider[0].scrollBy({
+          top: 0,
+          left: +scrollDistance * 7,
+          behavior: "smooth",
+          // CREARE FUNZIONE PER TUTTO!!!!!
+        });
 
-    if (element.id == 'btn-left3') {
-      slider[2].scrollBy({
-        top: 0,
-        left: -scrollDistance,
-        behavior: "smooth",
-        // CREARE FUNZIONE PER TUTTO!!!!!
-      });
-    }
+        activeIndex = 7;
+        updateIndicators(activeIndex);
+      }
+  
+      if (btn.id == 'btn-left2') { // Sezione Tops
+        slider[1].scrollBy({
+          top: 0,
+          left: +scrollDistance * 7,
+          behavior: "smooth",
+          // CREARE FUNZIONE PER TUTTO!!!!!
+        });
 
-    activeIndex = (activeIndex - 1);
-    updateIndicators(activeIndex);
+        activeIndex = 15;
+        updateIndicators(activeIndex);
+      }
+
+      if (btn.id == 'btn-left3') { // Sezione top10
+        slider[2].scrollBy({
+          top: 0,
+          left: +scrollDistance * 2,
+          behavior: "smooth",
+          // CREARE FUNZIONE PER TUTTO!!!!!
+        });
+
+        activeIndex = 17;
+        updateIndicators(activeIndex);
+      }
+
+    } else {
+
+      if (btn.id == 'btn-left1') {
+        slider[0].scrollBy({
+          top: 0,
+          left: -scrollDistance,
+          behavior: "smooth",
+        });
+
+        activeIndex = --index1;
+        updateIndicators(activeIndex);
+      }
+  
+      if (btn.id == 'btn-left2') {
+        slider[1].scrollBy({
+          top: 0,
+          left: -scrollDistance,
+          behavior: "smooth",
+        });
+
+        activeIndex = --index2;
+        updateIndicators(activeIndex);
+      }
+  
+      if (btn.id == 'btn-left3') {
+        slider[2].scrollBy({
+          top: 0,
+          left: -scrollDistance,
+          behavior: "smooth",
+        });
+
+        activeIndex = --index3;
+        updateIndicators(activeIndex);
+      }
+    }
   });
 });
 
 
 // Scroll Right button
-btnRight.forEach(element => {
-  element.addEventListener("click", () => {
+btnRight.forEach(btn => {
+  btn.addEventListener("click", () => {
     let movieWidth = document.querySelector(".movie").getBoundingClientRect().width;
     let scrollDistance = movieWidth * 5.11; // Scroll the length of 6 movies. TODO: make work for mobile because (4 movies/page instead of 6)
     console.log(`movieWidth = ${movieWidth}`);
     console.log(`scrolling right ${scrollDistance}`);
-    // if we're on the last page
-    if (activeIndex == 7) {
 
-      if (element.id == 'btn-right1') {
+
+    if ((activeIndex == 7 && index1 == 7)) { // Sezione Populars
+
+      if (btn.id == 'btn-right1') {
+
         slider[0].scrollBy({
           top: 0,
-          left: +scrollDistance,
+          left: -scrollDistance * 7,
           behavior: "smooth",
         });
-        // CREARE FUNZIONE PER TUTTO!!!!!
+
+        index1 = 0;
+        activeIndex = 0;
+        updateIndicators(activeIndex);
       }
 
-      if (element.id == 'btn-right2') {
+      if (btn.id == 'btn-right2' && index2 < 15) { // Sezione Tops
         slider[1].scrollBy({
           top: 0,
           left: +scrollDistance,
           behavior: "smooth",
         });
-        // CREARE FUNZIONE PER TUTTO!!!!!
+
+        activeIndex = ++index2;
+        updateIndicators(activeIndex);
+
+      } else if (btn.id == 'btn-right2' && index2 == 15) {
+        slider[1].scrollBy({
+          top: 0,
+          left: -scrollDistance * 7,
+          behavior: "smooth",
+        });
+
+        index2 = 8;
+        activeIndex = 8;
+        updateIndicators(activeIndex);
       }
 
-      if (element.id == 'btn-right3') {
+      if (btn.id == 'btn-right3' && index3 < 17) { // Sezione Top10
         slider[2].scrollBy({
           top: 0,
           left: +scrollDistance,
           behavior: "smooth",
         });
-        // CREARE FUNZIONE PER TUTTO!!!!!
+
+        activeIndex = ++index3;
+        updateIndicators(activeIndex);
+
+      } else if (btn.id == 'btn-right3' && index3 == 17) {
+
+        slider[2].scrollBy({
+          top: 0,
+          left: -scrollDistance * 2,
+          behavior: "smooth",
+        });
+
+        index3 = 16;
+        activeIndex = 16;
+        updateIndicators(activeIndex);
+
+      }
+    } else if ((activeIndex == 15 && index2 == 15)) { // Sezione Tops
+
+      if (btn.id == 'btn-right2') { // Sezione Tops
+        slider[1].scrollBy({
+          top: 0,
+          left: -scrollDistance * 7,
+          behavior: "smooth",
+        });
+
+        index2 = 8;
+        activeIndex = 8;
+        updateIndicators(activeIndex);
       }
 
-      activeIndex = 1;
-      updateIndicators(activeIndex);
+      if (btn.id == 'btn-right1' && index1 < 7) { // Sezione Populars
+        slider[0].scrollBy({
+          top: 0,
+          left: +scrollDistance,
+          behavior: "smooth",
+        });
+
+        activeIndex = ++index1;
+        updateIndicators(activeIndex);
+        
+      } else if (btn.id == 'btn-right1' && index1 == 7) {
+
+        slider[0].scrollBy({
+          top: 0,
+          left: -scrollDistance * 7,
+          behavior: "smooth",
+        });
+
+        index1 = 0;
+        activeIndex = 0;
+        updateIndicators(activeIndex);
+      }
+
+      if (btn.id == 'btn-right3' && index3 < 17) { // Sezione Top10
+        slider[2].scrollBy({
+          top: 0,
+          left: +scrollDistance,
+          behavior: "smooth",
+        });
+
+        activeIndex = ++index3;
+        updateIndicators(activeIndex);
+
+      } else if (btn.id == 'btn-right3' && index3 == 17) {
+
+        slider[2].scrollBy({
+          top: 0,
+          left: -scrollDistance * 2,
+          behavior: "smooth",
+        });
+
+        index3 = 16;
+        activeIndex = 16;
+        updateIndicators(activeIndex);
+      }
+
+    } else if ((activeIndex == 17 && index3 == 17)) { // Sezione Top10
+      
+      if (btn.id == 'btn-right3') { // Sezione Top10
+        slider[2].scrollBy({
+          top: 0,
+          left: -scrollDistance * 2,
+          behavior: "smooth",
+        });
+
+        index3 = 16;
+        activeIndex = 16;
+        updateIndicators(activeIndex);
+      }
+
+      if (btn.id == 'btn-right2' && index2 < 15) { // Sezione Tops
+        slider[1].scrollBy({
+          top: 0,
+          left: +scrollDistance,
+          behavior: "smooth",
+        });
+
+        activeIndex = ++index2;
+        updateIndicators(activeIndex);
+
+      } else if (btn.id == 'btn-right2' && index2 == 15) {
+        slider[1].scrollBy({
+          top: 0,
+          left: -scrollDistance * 7,
+          behavior: "smooth",
+        });
+
+        index2 = 8;
+        activeIndex = 8;
+        updateIndicators(activeIndex);
+      }
+
+      if (btn.id == 'btn-right1' && index1 < 7) { // Sezione Populars
+        slider[0].scrollBy({
+          top: 0,
+          left: +scrollDistance,
+          behavior: "smooth",
+        });
+
+        activeIndex = ++index1;
+        updateIndicators(activeIndex);
+
+      } else if (btn.id == 'btn-right1' && index1 == 7) {
+
+        slider[0].scrollBy({
+          top: 0,
+          left: -scrollDistance * 7,
+          behavior: "smooth",
+        });
+
+        index1 = 0;
+        activeIndex = 0;
+        updateIndicators(activeIndex);
+      }
+
+    } else if (index3 == 17 && activeIndex != index3) {
+
+      if (btn.id == 'btn-right3') { // Sezione Top10
+        slider[2].scrollBy({
+          top: 0,
+          left: -scrollDistance * 2,
+          behavior: "smooth",
+        });
+
+        index3 = 16;
+        activeIndex = 16;
+        updateIndicators(activeIndex);
+      }
+
+      if (btn.id == 'btn-right1') { // Sezione Populars
+        slider[0].scrollBy({
+          top: 0,
+          left: +scrollDistance,
+          behavior: "smooth",
+        });
+  
+        activeIndex = ++index1;
+        updateIndicators(activeIndex);
+      }
+  
+      if (btn.id == 'btn-right2') { // Sezione Tops
+        slider[1].scrollBy({
+          top: 0,
+          left: +scrollDistance,
+          behavior: "smooth",
+        });
+  
+        activeIndex = ++index2;
+        updateIndicators(activeIndex);
+      }
+
+    } else if (index2 == 15 && activeIndex != index2) {
+
+      if (btn.id == 'btn-right2') { // Sezione Tops
+        slider[1].scrollBy({
+          top: 0,
+          left: -scrollDistance * 7,
+          behavior: "smooth",
+        });
+
+        index2 = 8;
+        activeIndex = 8;
+        updateIndicators(activeIndex);
+      }
+
+      if (btn.id == 'btn-right1') { // Sezione Populars
+        slider[0].scrollBy({
+          top: 0,
+          left: +scrollDistance,
+          behavior: "smooth",
+        });
+  
+        activeIndex = ++index1;
+        updateIndicators(activeIndex);
+      }
+
+      if (btn.id == 'btn-right3') { // Sezione top10
+        slider[2].scrollBy({
+          top: 0,
+          left: +scrollDistance,
+          behavior: "smooth",
+        });
+  
+        activeIndex = ++index3;
+        updateIndicators(activeIndex);
+      }
+
+    } else if (index1 == 7 && activeIndex != index1) {
+
+      if (btn.id == 'btn-right1') {
+
+        slider[0].scrollBy({
+          top: 0,
+          left: -scrollDistance * 7,
+          behavior: "smooth",
+        });
+
+        index1 = 0;
+        activeIndex = 0;
+        updateIndicators(activeIndex);
+      }
+
+      if (btn.id == 'btn-right2') { // Sezione Tops
+        slider[1].scrollBy({
+          top: 0,
+          left: +scrollDistance,
+          behavior: "smooth",
+        });
+  
+        activeIndex = ++index2;
+        updateIndicators(activeIndex);
+      }
+
+      if (btn.id == 'btn-right3') { // Sezione top10
+        slider[2].scrollBy({
+          top: 0,
+          left: +scrollDistance,
+          behavior: "smooth",
+        });
+  
+        activeIndex = ++index3;
+        updateIndicators(activeIndex);
+      }
+
+
+
+      
     } else {
 
-      if (element.id == 'btn-right1') {
+      if (btn.id == 'btn-right1') { // Sezione Populars
         slider[0].scrollBy({
           top: 0,
           left: +scrollDistance,
           behavior: "smooth",
         });
-        // CREARE FUNZIONE PER TUTTO!!!!!
+  
+        activeIndex = ++index1;
+        updateIndicators(activeIndex);
       }
-
-      if (element.id == 'btn-right2') {
+  
+      if (btn.id == 'btn-right2') { // Sezione Tops
         slider[1].scrollBy({
           top: 0,
           left: +scrollDistance,
           behavior: "smooth",
         });
-        // CREARE FUNZIONE PER TUTTO!!!!!
+  
+        activeIndex = ++index2;
+        updateIndicators(activeIndex);
       }
-
-      if (element.id == 'btn-right3') {
+  
+      if (btn.id == 'btn-right3') { // Sezione top10
         slider[2].scrollBy({
           top: 0,
           left: +scrollDistance,
           behavior: "smooth",
         });
-        // CREARE FUNZIONE PER TUTTO!!!!!
+  
+        activeIndex = ++index3;
+        updateIndicators(activeIndex);
       }
-
-      activeIndex = (activeIndex + 1);
-      console.log(activeIndex);
-      updateIndicators(activeIndex);
     }
+
+    console.log('index1', index1);
+    console.log('index2', index2);
+    console.log('index3', index3);
+    console.log('activeIndex', activeIndex);
   })
 });
+
+// Update the indicators that show which page we're currently on
+function updateIndicators(index) { // trovare una soluzione per l'indice
+  indicators.forEach((indicator) => {
+    indicator.classList.remove("active");
+  });
+
+  let newActiveIndicator = indicators[index];
+  newActiveIndicator.classList.add("active");
+
+  console.log(indicators, newActiveIndicator);
+}
 
 // CREARE 2 FUNZIONI - 1 per il scrollBY e - 1 per il controllo dell'id

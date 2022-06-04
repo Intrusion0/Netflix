@@ -7,14 +7,14 @@
         <i class="fas fa-angle-left"></i>
       </button>
       <div class="container-indicators">
-        <div class="indicator active" data-index=0></div>
-        <div class="indicator" data-index=1></div>
-        <div class="indicator" data-index=2></div>
-        <div class="indicator" data-index=3></div>
-        <div class="indicator" data-index=4></div>
-        <div class="indicator" data-index=5></div>
-        <div class="indicator" data-index=6></div>
-        <div class="indicator" data-index=7></div>
+        <div class="indicator active" data-index=8></div>
+        <div class="indicator" data-index=9></div>
+        <div class="indicator" data-index=10></div>
+        <div class="indicator" data-index=11></div>
+        <div class="indicator" data-index=12></div>
+        <div class="indicator" data-index=13></div>
+        <div class="indicator" data-index=14></div>
+        <div class="indicator" data-index=15></div>
       </div>
       <div class="slider" id="mySlider1">
         <div v-for="detail, i in details" :key="i" id="movie0" class="movie">
