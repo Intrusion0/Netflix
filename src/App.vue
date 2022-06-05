@@ -26,7 +26,6 @@ export default {
 
 :root {
   --movie-width: 15.5vw;
-  --movie-height: 200px;
   --arrow-width: 50px;
 }
 @media only screen and (max-width: 1000px) {
@@ -113,7 +112,7 @@ export default {
 *********************************/
 .btn-nav {
   width: var(--arrow-width);
-  height: var(--movie-height);
+  height: auto;
   border-radius: 5px;
   position: absolute;
   bottom: 0;
