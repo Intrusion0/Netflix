@@ -21,59 +21,23 @@ btnLeft.forEach(btn => {
   btn.addEventListener("click", () => {
     let movieWidth = document.querySelector(".movie").getBoundingClientRect().width;
     let scrollDistance = movieWidth * 5.11; // Scroll the length of 6 movies. TODO: make work for mobile because (4 movies/page instead of 6)
+  
+    if ((activeIndex == 0 && index1 == 0)) { // Sezione Populars
 
-    if (activeIndex == 0 || activeIndex == 8 || activeIndex == 16) { // Quando l'indice è uguale a 0, se riclicco mi porta alla fine, quindi abbiamo un carousel infinito.
+      if (btn.id == 'btn-left1') {
 
-      if (btn.id == 'btn-left1') { // Sezione Populars
         slider[0].scrollBy({
           top: 0,
           left: +scrollDistance * 7,
           behavior: "smooth",
-          // CREARE FUNZIONE PER TUTTO!!!!!
         });
 
+        index1 = 7;
         activeIndex = 7;
         updateIndicators(activeIndex);
       }
-  
-      if (btn.id == 'btn-left2') { // Sezione Tops
-        slider[1].scrollBy({
-          top: 0,
-          left: +scrollDistance * 7,
-          behavior: "smooth",
-          // CREARE FUNZIONE PER TUTTO!!!!!
-        });
 
-        activeIndex = 15;
-        updateIndicators(activeIndex);
-      }
-
-      if (btn.id == 'btn-left3') { // Sezione top10
-        slider[2].scrollBy({
-          top: 0,
-          left: +scrollDistance * 2,
-          behavior: "smooth",
-          // CREARE FUNZIONE PER TUTTO!!!!!
-        });
-
-        activeIndex = 17;
-        updateIndicators(activeIndex);
-      }
-
-    } else {
-
-      if (btn.id == 'btn-left1') {
-        slider[0].scrollBy({
-          top: 0,
-          left: -scrollDistance,
-          behavior: "smooth",
-        });
-
-        activeIndex = --index1;
-        updateIndicators(activeIndex);
-      }
-  
-      if (btn.id == 'btn-left2') {
+      if (btn.id == 'btn-left2' && index2 > 8) { // Sezione Tops
         slider[1].scrollBy({
           top: 0,
           left: -scrollDistance,
@@ -82,9 +46,20 @@ btnLeft.forEach(btn => {
 
         activeIndex = --index2;
         updateIndicators(activeIndex);
+
+      } else if (btn.id == 'btn-left2' && index2 == 8) {
+        slider[1].scrollBy({
+          top: 0,
+          left: +scrollDistance * 7,
+          behavior: "smooth",
+        });
+
+        index2 = 15;
+        activeIndex = 15;
+        updateIndicators(activeIndex);
       }
-  
-      if (btn.id == 'btn-left3') {
+
+      if (btn.id == 'btn-left3' && index3 > 16) { // Sezione Top10
         slider[2].scrollBy({
           top: 0,
           left: -scrollDistance,
@@ -93,8 +68,223 @@ btnLeft.forEach(btn => {
 
         activeIndex = --index3;
         updateIndicators(activeIndex);
+
+      } else if (btn.id == 'btn-left3' && index3 == 16) {
+
+        slider[2].scrollBy({
+          top: 0,
+          left: +scrollDistance * 2,
+          behavior: "smooth",
+        });
+
+        index3 = 17;
+        activeIndex = 17;
+        updateIndicators(activeIndex);
+
+      }
+    } else if ((activeIndex == 8 && index2 == 8)) { // Sezione Tops
+
+      if (btn.id == 'btn-left2') { // Sezione Tops
+        slider[1].scrollBy({
+          top: 0,
+          left: +scrollDistance * 7,
+          behavior: "smooth",
+        });
+
+        index2 = 15;
+        activeIndex = 15;
+        updateIndicators(activeIndex);
+      }
+
+      if (btn.id == 'btn-left1' && index1 > 0) { // Sezione Populars
+        slider[0].scrollBy({
+          top: 0,
+          left: -scrollDistance,
+          behavior: "smooth",
+        });
+
+        activeIndex = --index1;
+        updateIndicators(activeIndex);
+        
+      } else if (btn.id == 'btn-left1' && index1 == 0) {
+
+        slider[0].scrollBy({
+          top: 0,
+          left: +scrollDistance * 7,
+          behavior: "smooth",
+        });
+
+        index1 = 7;
+        activeIndex = 7;
+        updateIndicators(activeIndex);
+      }
+
+      if (btn.id == 'btn-left3' && index3 > 16) { // Sezione Top10
+        slider[2].scrollBy({
+          top: 0,
+          left: -scrollDistance,
+          behavior: "smooth",
+        });
+
+        activeIndex = --index3;
+        updateIndicators(activeIndex);
+
+      } else if (btn.id == 'btn-left3' && index3 == 16) {
+
+        slider[2].scrollBy({
+          top: 0,
+          left: +scrollDistance * 2,
+          behavior: "smooth",
+        });
+
+        index3 = 17;
+        activeIndex = 17;
+        updateIndicators(activeIndex);
+      }
+
+    } else if ((activeIndex == 16 && index3 == 16)) { // Sezione Top10
+      
+      if (btn.id == 'btn-left3') { // Sezione Top10
+        slider[2].scrollBy({
+          top: 0,
+          left: +scrollDistance * 2,
+          behavior: "smooth",
+        });
+
+        index3 = 17;
+        activeIndex = 17;
+        updateIndicators(activeIndex);
+      }
+
+      if (btn.id == 'btn-left2' && index2 > 8) { // Sezione Tops
+        slider[1].scrollBy({
+          top: 0,
+          left: -scrollDistance,
+          behavior: "smooth",
+        });
+
+        activeIndex = --index2;
+        updateIndicators(activeIndex);
+
+      } else if (btn.id == 'btn-left2' && index2 == 8) {
+        slider[1].scrollBy({
+          top: 0,
+          left: +scrollDistance * 7,
+          behavior: "smooth",
+        });
+
+        index2 = 15;
+        activeIndex = 15;
+        updateIndicators(activeIndex);
+      }
+
+      if (btn.id == 'btn-left1' && index1 > 0) { // Sezione Populars
+        slider[0].scrollBy({
+          top: 0,
+          left: -scrollDistance,
+          behavior: "smooth",
+        });
+
+        activeIndex = --index1;
+        updateIndicators(activeIndex);
+
+      } else if (btn.id == 'btn-left1' && index1 == 0) {
+
+        slider[0].scrollBy({
+          top: 0,
+          left: +scrollDistance * 7,
+          behavior: "smooth",
+        });
+
+        index1 = 7;
+        activeIndex = 7;
+        updateIndicators(activeIndex);
+      }
+
+    } else if (btn.id == 'btn-left3' && index3 == 16 && activeIndex != index3) { // Button 3 - Sezione Top10
+
+      if (btn.id == 'btn-left3') { // Sezione Top10
+        slider[2].scrollBy({
+          top: 0,
+          left: +scrollDistance * 2,
+          behavior: "smooth",
+        });
+
+        index3 = 17;
+        activeIndex = 17;
+        updateIndicators(activeIndex);
+      }
+
+    } else if (btn.id == 'btn-left2' && index2 == 8 && activeIndex != index2) { // Button 2 - Sezione Tops
+
+      if (btn.id == 'btn-left2') { // Sezione Tops
+        slider[1].scrollBy({
+          top: 0,
+          left: +scrollDistance * 7,
+          behavior: "smooth",
+        });
+
+        index2 = 15;
+        activeIndex = 15;
+        updateIndicators(activeIndex);
+      }
+
+    } else if (btn.id == 'btn-left1' && index1 == 0 && activeIndex != index1) { // Button 1 - Sezione Populars
+
+      if (btn.id == 'btn-left1') {
+
+        slider[0].scrollBy({
+          top: 0,
+          left: +scrollDistance * 7,
+          behavior: "smooth",
+        });
+
+        index1 = 7;
+        activeIndex = 7;
+        updateIndicators(activeIndex);
+      }
+
+    } else {
+
+      if (btn.id == 'btn-left1') { // Sezione Populars
+        slider[0].scrollBy({
+          top: 0,
+          left: -scrollDistance,
+          behavior: "smooth",
+        });
+  
+        activeIndex = --index1;
+        updateIndicators(activeIndex);
+      }
+  
+      if (btn.id == 'btn-left2') { // Sezione Tops
+        console.log('ciao');
+        slider[1].scrollBy({
+          top: 0,
+          left: -scrollDistance,
+          behavior: "smooth",
+        });
+  
+        activeIndex = --index2;
+        updateIndicators(activeIndex);
+      }
+  
+      if (btn.id == 'btn-left3') { // Sezione top10
+        slider[2].scrollBy({
+          top: 0,
+          left: -scrollDistance,
+          behavior: "smooth",
+        });
+  
+        activeIndex = --index3;
+        updateIndicators(activeIndex);
       }
     }
+    
+    console.log('index1', index1);
+    console.log('index2', index2);
+    console.log('index3', index3);
+    console.log('activeIndex', activeIndex);
   });
 });
 
@@ -287,7 +477,7 @@ btnRight.forEach(btn => {
         updateIndicators(activeIndex);
       }
 
-    } else if (index3 == 17 && activeIndex != index3) {
+    } else if (btn.id == 'btn-right3' && index3 == 17 && activeIndex != index3) {
 
       if (btn.id == 'btn-right3') { // Sezione Top10
         slider[2].scrollBy({
@@ -301,29 +491,7 @@ btnRight.forEach(btn => {
         updateIndicators(activeIndex);
       }
 
-      if (btn.id == 'btn-right1') { // Sezione Populars
-        slider[0].scrollBy({
-          top: 0,
-          left: +scrollDistance,
-          behavior: "smooth",
-        });
-  
-        activeIndex = ++index1;
-        updateIndicators(activeIndex);
-      }
-  
-      if (btn.id == 'btn-right2') { // Sezione Tops
-        slider[1].scrollBy({
-          top: 0,
-          left: +scrollDistance,
-          behavior: "smooth",
-        });
-  
-        activeIndex = ++index2;
-        updateIndicators(activeIndex);
-      }
-
-    } else if (index2 == 15 && activeIndex != index2) {
+    } else if (btn.id == 'btn-right2' && index2 == 15 && activeIndex != index2) {
 
       if (btn.id == 'btn-right2') { // Sezione Tops
         slider[1].scrollBy({
@@ -337,29 +505,7 @@ btnRight.forEach(btn => {
         updateIndicators(activeIndex);
       }
 
-      if (btn.id == 'btn-right1') { // Sezione Populars
-        slider[0].scrollBy({
-          top: 0,
-          left: +scrollDistance,
-          behavior: "smooth",
-        });
-  
-        activeIndex = ++index1;
-        updateIndicators(activeIndex);
-      }
-
-      if (btn.id == 'btn-right3') { // Sezione top10
-        slider[2].scrollBy({
-          top: 0,
-          left: +scrollDistance,
-          behavior: "smooth",
-        });
-  
-        activeIndex = ++index3;
-        updateIndicators(activeIndex);
-      }
-
-    } else if (index1 == 7 && activeIndex != index1) {
+    } else if (btn.id == 'btn-right1' && index1 == 7 && activeIndex != index1) {
 
       if (btn.id == 'btn-right1') {
 
@@ -373,31 +519,6 @@ btnRight.forEach(btn => {
         activeIndex = 0;
         updateIndicators(activeIndex);
       }
-
-      if (btn.id == 'btn-right2') { // Sezione Tops
-        slider[1].scrollBy({
-          top: 0,
-          left: +scrollDistance,
-          behavior: "smooth",
-        });
-  
-        activeIndex = ++index2;
-        updateIndicators(activeIndex);
-      }
-
-      if (btn.id == 'btn-right3') { // Sezione top10
-        slider[2].scrollBy({
-          top: 0,
-          left: +scrollDistance,
-          behavior: "smooth",
-        });
-  
-        activeIndex = ++index3;
-        updateIndicators(activeIndex);
-      }
-
-
-
       
     } else {
 
@@ -443,7 +564,7 @@ btnRight.forEach(btn => {
 });
 
 // Update the indicators that show which page we're currently on
-function updateIndicators(index) { // trovare una soluzione per l'indice
+function updateIndicators(index) {
   indicators.forEach((indicator) => {
     indicator.classList.remove("active");
   });
