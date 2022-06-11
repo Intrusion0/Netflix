@@ -55,6 +55,7 @@
       <Populars :details="populars"/>
       <Tops :details="tops"/>
       <Top-10-series :details="top10Series"/>
+      <Upcoming :details="upcomings"/>
     </div>
   </main>
 </template>
@@ -64,10 +65,11 @@ import axios from 'axios'
 import Populars from './Populars.vue'
 import Tops from './Tops.vue'
 import Top10Series from './Top10Series.vue'
+import Upcoming from './Upcoming.vue'
 
 
 export default {
-  components: { Populars, Tops, Top10Series },
+  components: { Populars, Tops, Top10Series, Upcoming },
   name: 'Main',
 
   data() {
@@ -81,6 +83,7 @@ export default {
         apiPopulars: 'popular',
         apiTops: 'top_rated',
         apiTop10Series: 'airing_today',
+        apiUpcomings: 'upcoming',
         popularsSeries: [],
         popularsMovies: [],
         topSeries: [],
@@ -88,6 +91,7 @@ export default {
         populars: [],
         tops: [],
         top10Series: [],
+        upcomings:[],
         randomJumbo: " ",
         imgUrl: "https://image.tmdb.org/t/p/original",
     }
@@ -97,6 +101,7 @@ export default {
     this.getPopular();
     this.getTop();
     this.getTop10Series();
+    this.getUpcomings();
   },
 
   methods: {
@@ -152,8 +157,20 @@ export default {
           })
           .catch((e) => console.error(e));
 
+    },
+
+    async getUpcomings() {
+      // Upcomings
+      await axios.get(this.apiUrl + this.apiMovie + this.apiUpcomings + this.apiKey + this.apiLanguage + this.apiPage)
+          .then((r) => {
+            this.upcomings = r.data.results;
+              console.log('upcomings', r.data.results);
+          })
+          .catch((e) => console.error(e));
+
     }
   },
+
 }
 </script>
 
