@@ -151,7 +151,7 @@ export default {
   font-family: 'Roboto', sans-serif;
 }
 
-section#populars, section#tops, section#top10 {
+section#populars, section#tops, section#top10, section#upcomings, section#comedy {
   position: relative;
   padding: 28px 0;
 }
@@ -182,5 +182,8 @@ h2 {
   }
 }
 
+.movie:hover {
+  cursor: pointer;
+}
 
 </style>

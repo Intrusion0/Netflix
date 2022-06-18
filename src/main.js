@@ -17,6 +17,7 @@ let index1 = 0; // Indicatori Populars
 let index2 = 8; // Indicatori Tops
 let index3 = 16; // Indicatori Top10Series
 let index4 = 18; // Indicatori Upcomings
+let index5 = 22; // Indicatori Comedy
 
 
 // Change header background-color at scroll
@@ -31,7 +32,7 @@ window.addEventListener('scroll', () => {
     header.style.backgroundImage = 'linear-gradient(to bottom,rgba(0,0,0,.7) 10%,rgba(0,0,0,0))';
     header.style.transition =  'background-color .4s';
   }
-  console.log(window.scrollY);
+  // console.log(window.scrollY);
 })
 
 
@@ -41,7 +42,7 @@ btnLeft.forEach(btn => {
     let movieWidth = document.querySelector(".movie").getBoundingClientRect().width;
     let scrollDistance = movieWidth * 5.11; // Scroll the length of 6 movies. TODO: make work for mobile because (4 movies/page instead of 6)
 
-    slideLeft(btn.id, scrollDistance, 'btn-left1', 'btn-left2', 'btn-left3', 'btn-left4');
+    slideLeft(btn.id, scrollDistance, 'btn-left1', 'btn-left2', 'btn-left3', 'btn-left4', 'btn-left5');
   });
 });
 
@@ -54,7 +55,7 @@ btnRight.forEach(btn => {
     console.log(`movieWidth = ${movieWidth}`);
     console.log(`scrolling right ${scrollDistance}`);
 
-    slideRight(btn.id, scrollDistance, 'btn-right1', 'btn-right2', 'btn-right3', 'btn-right4');
+    slideRight(btn.id, scrollDistance, 'btn-right1', 'btn-right2', 'btn-right3', 'btn-right4', 'btn-right5');
   })
 });
 
@@ -103,6 +104,10 @@ function checkIndex(index, Number = null) {
       index4 = Number;
       activeIndex = Number;
       break;
+    case 'index5':
+      index5 = Number;
+      activeIndex = Number;
+      break;
     case '--index1':
       activeIndex = --index1;
       break;
@@ -114,6 +119,9 @@ function checkIndex(index, Number = null) {
       break;
     case '--index4':
       activeIndex = --index4;
+      break;
+    case '--index5':
+      activeIndex = --index5;
       break;
     case '++index1':
       activeIndex = ++index1;
@@ -127,11 +135,14 @@ function checkIndex(index, Number = null) {
     case '++index4':
       activeIndex = ++index4;
       break;
+    case '++index5':
+      activeIndex = ++index5;
+      break;
   }
 }
 
 //  Left slider carousel
-function slideLeft(btnId, scrollDistance, btn1, btn2, btn3, btn4) {
+function slideLeft(btnId, scrollDistance, btn1, btn2, btn3, btn4, btn5) {
 
   if ((activeIndex == 0 && index1 == 0)) { // Sezione Populars
 
@@ -169,7 +180,7 @@ function slideLeft(btnId, scrollDistance, btn1, btn2, btn3, btn4) {
 
     }
 
-    if (btnId == btn4 && index4 > 18) {
+    if (btnId == btn4 && index4 > 18) { // Sezione Upcomings
 
       scroll(slider[3], -scrollDistance);
       checkIndex('--index4');
@@ -179,6 +190,20 @@ function slideLeft(btnId, scrollDistance, btn1, btn2, btn3, btn4) {
 
       scroll(slider[3], +scrollDistance * 4);
       checkIndex('index4', 21);
+      updateIndicators(activeIndex);
+
+    }
+
+    if (btnId == btn5 && index5 > 22) { // Sezione Comedy
+
+      scroll(slider[4], -scrollDistance);
+      checkIndex('--index5');
+      updateIndicators(activeIndex);
+
+    } else if (btnId == btn5 && index5 == 22) {
+
+      scroll(slider[4], +scrollDistance * 4);
+      checkIndex('index5', 25);
       updateIndicators(activeIndex);
 
     }
@@ -232,6 +257,20 @@ function slideLeft(btnId, scrollDistance, btn1, btn2, btn3, btn4) {
 
     }
 
+    if (btnId == btn5 && index5 > 22) { // Sezione Comedy
+
+      scroll(slider[4], -scrollDistance);
+      checkIndex('--index5');
+      updateIndicators(activeIndex);
+
+    } else if (btnId == btn5 && index5 == 22) {
+
+      scroll(slider[4], +scrollDistance * 4);
+      checkIndex('index5', 25);
+      updateIndicators(activeIndex);
+
+    }
+
   } else if ((activeIndex == 16 && index3 == 16)) { // Sezione Top10
     
     if (btnId == btn3) { // Sezione Top10
@@ -281,7 +320,21 @@ function slideLeft(btnId, scrollDistance, btn1, btn2, btn3, btn4) {
 
     }
 
-  } else if ((activeIndex == 18 && index4 == 18)) { // Sezione Upcomings
+    if (btnId == btn5 && index5 > 22) { // Sezione Comedy
+
+      scroll(slider[4], -scrollDistance);
+      checkIndex('--index5');
+      updateIndicators(activeIndex);
+
+    } else if (btnId == btn5 && index5 == 22) {
+
+      scroll(slider[4], +scrollDistance * 4);
+      checkIndex('index5', 25);
+      updateIndicators(activeIndex);
+
+    }
+
+  } else if (activeIndex == 18 && index4 == 18) { // Sezione Upcomings
     
     if (btnId == btn4) { // Sezione Upcomings
 
@@ -326,6 +379,91 @@ function slideLeft(btnId, scrollDistance, btn1, btn2, btn3, btn4) {
 
       scroll(slider[2], +scrollDistance * 2);
       checkIndex('index3', 17);
+      updateIndicators(activeIndex);
+    }
+
+    if (btnId == btn5 && index5 > 22) { // Sezione Comedy
+
+      scroll(slider[4], -scrollDistance);
+      checkIndex('--index5');
+      updateIndicators(activeIndex);
+
+    } else if (btnId == btn5 && index5 == 22) {
+
+      scroll(slider[4], +scrollDistance * 4);
+      checkIndex('index5', 25);
+      updateIndicators(activeIndex);
+
+    }
+
+  } else if (activeIndex == 22 && index5 == 22)  {
+
+    if (btnId == btn5) { // Sezione Comedy
+
+      scroll(slider[4], +scrollDistance * 4);
+      checkIndex('index5', 25);
+      updateIndicators(activeIndex);
+    }
+
+    if (btnId == btn2 && index2 > 8) { // Sezione Tops
+
+      scroll(slider[1], -scrollDistance);
+      checkIndex('--index2');
+      updateIndicators(activeIndex);
+
+    } else if (btnId == btn2 && index2 == 8) {
+
+      scroll(slider[1], +scrollDistance * 7);
+      checkIndex('index2', 15);
+      updateIndicators(activeIndex);
+    }
+
+    if (btnId == btn1 && index1 > 0) { // Sezione Populars
+
+      scroll(slider[0], -scrollDistance);
+      checkIndex('--index1');
+      updateIndicators(activeIndex);
+
+    } else if (btnId == btn1 && index1 == 0) {
+
+      scroll(slider[0], +scrollDistance * 7);
+      checkIndex('index1', 7);
+      updateIndicators(activeIndex);
+    }
+
+    if (btnId == btn3 && index3 > 16) { // Sezione Top10
+
+      scroll(slider[2], -scrollDistance);
+      checkIndex('--index3');
+      updateIndicators(activeIndex);
+
+    } else if (btnId == btn3 && index3 == 16) {
+
+      scroll(slider[2], +scrollDistance * 2);
+      checkIndex('index3', 17);
+      updateIndicators(activeIndex);
+    }
+
+    if (btnId == btn4 && index4 > 18) { // Sezione Upcomings 
+
+      scroll(slider[3], -scrollDistance);
+      checkIndex('--index4');
+      updateIndicators(activeIndex);
+
+    } else if (btnId == btn4 && index4 == 18) {
+
+      scroll(slider[3], +scrollDistance * 4);
+      checkIndex('index4', 21);
+      updateIndicators(activeIndex);
+
+    }
+
+  } else if (btnId == btn5 && index5 == 22 && activeIndex != index5) { // Button 5 - Sezione Comedy
+
+    if (btnId == btn5) { // Sezione Comedy
+
+      scroll(slider[4], +scrollDistance * 4);
+      checkIndex('index5', 25);
       updateIndicators(activeIndex);
     }
 
@@ -394,8 +532,17 @@ function slideLeft(btnId, scrollDistance, btn1, btn2, btn3, btn4) {
       checkIndex('--index4');
       updateIndicators(activeIndex);
     }
+
+    if (btnId == btn5) { // Sezione Comedy
+
+      scroll(slider[4], -scrollDistance);
+      checkIndex('--index5');
+      updateIndicators(activeIndex);
+    }
   }
 }
+
+// DOBBIAMO FARE IL PULSANTE RIGHT SEZIONE COMEDY COSI CI SALTA L'OCCHIO !!!!! ☻♥☺☻.♣3•◘○♥☺◙¶: fai il push o no?
 
 // Right slider carousel
 function slideRight(btnId, scrollDistance, btn1, btn2, btn3, btn4) {

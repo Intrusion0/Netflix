@@ -56,6 +56,7 @@
       <Tops :details="tops"/>
       <Top-10-series :details="top10Series"/>
       <Upcoming :details="upcomings"/>
+      <Comedy :details="comedyMovies"/>
     </div>
   </main>
 </template>
@@ -66,10 +67,11 @@ import Populars from './Populars.vue'
 import Tops from './Tops.vue'
 import Top10Series from './Top10Series.vue'
 import Upcoming from './Upcoming.vue'
+import Comedy from './Comedy.vue'
 
 
 export default {
-  components: { Populars, Tops, Top10Series, Upcoming },
+  components: { Populars, Tops, Top10Series, Upcoming, Comedy },
   name: 'Main',
 
   data() {
@@ -84,6 +86,9 @@ export default {
         apiTops: 'top_rated',
         apiTop10Series: 'airing_today',
         apiUpcomings: 'upcoming',
+        apiGenre: 'genre/',
+        apiDiscover: 'discover/',
+        apiList: 'list',
         popularsSeries: [],
         popularsMovies: [],
         topSeries: [],
@@ -92,6 +97,8 @@ export default {
         tops: [],
         top10Series: [],
         upcomings:[],
+        genres: [],
+        comedyMovies: [],
         randomJumbo: " ",
         imgUrl: "https://image.tmdb.org/t/p/original",
     }
@@ -102,6 +109,8 @@ export default {
     this.getTop();
     this.getTop10Series();
     this.getUpcomings();
+    this.getGenres();
+    this.getMovieComedy();
   },
 
   methods: {
@@ -168,7 +177,25 @@ export default {
           })
           .catch((e) => console.error(e));
 
-    }
+    },
+
+    async getGenres() {
+      await axios.get(this.apiUrl + this.apiGenre + this.apiMovie + this.apiList + this.apiKey + this.apiLanguage)
+          .then((r) => {
+            this.genres = r.data.genres;
+              console.log('generi', r.data.genres);
+          })
+          .catch((e) => console.error(e));
+    },
+
+    async getMovieComedy() {
+      await axios.get(this.apiUrl + this.apiDiscover + this.apiMovie + this.apiKey + this.apiLanguage + this.apiPage+2 + `&with_genres=35`)
+          .then((r) => {
+            this.comedyMovies = r.data.results;
+              console.log('moviesComedy', r.data.results);
+          })
+          .catch((e) => console.error(e));
+    },
   },
 
 }
